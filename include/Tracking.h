@@ -60,6 +60,7 @@ class Map;
 class LocalMapping;
 class LoopClosing;
 class System;
+class PointCloudMapping;
 
 /**
  * @brief  追踪当前帧功能
@@ -82,7 +83,7 @@ public:
      * @param[in] sensor            传感器类型
      */
     Tracking(System* pSys, ORBVocabulary* pVoc, FrameDrawer* pFrameDrawer, MapDrawer* pMapDrawer, Map* pMap,
-             KeyFrameDatabase* pKFDB, const string &strSettingPath, const int sensor);
+             KeyFrameDatabase* pKFDB, const string &strSettingPath, const int sensor, shared_ptr<PointCloudMapping> pPointCloud);
 
     // Preprocess the input and call Track(). Extract features and performs stereo matching.
     // 下面的函数都是对不同的传感器输入的图像进行处理(转换成为灰度图像),并且调用Tracking线程
@@ -383,6 +384,8 @@ protected:
     FrameDrawer* mpFrameDrawer;
     ///地图绘制器句柄
     MapDrawer* mpMapDrawer;
+
+    shared_ptr<PointCloudMapping> mpPointCloudMapping;
 
     //Map
     ///(全局)地图句柄

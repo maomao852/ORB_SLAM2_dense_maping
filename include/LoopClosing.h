@@ -50,6 +50,7 @@ namespace ORB_SLAM2
 class Tracking;
 class LocalMapping;
 class KeyFrameDatabase;
+class PointCloudMapping;
 
 /// 回环检测线程
 class LoopClosing
@@ -74,7 +75,7 @@ public:
      * @param[in] bFixScale     表示sim3中的尺度是否要计算,对于双目和RGBD情况尺度是固定的,s=1,bFixScale=true;而单目下尺度是不确定的,此时bFixScale=false,sim
      * 3中的s需要被计算
      */
-    LoopClosing(Map* pMap, KeyFrameDatabase* pDB, ORBVocabulary* pVoc,const bool bFixScale);
+    LoopClosing(Map* pMap, KeyFrameDatabase* pDB, ORBVocabulary* pVoc,const bool bFixScale, shared_ptr<PointCloudMapping> pPointCloudMapping);
     /** @brief 设置追踪线程的句柄
      *  @param[in] pTracker 追踪线程的句柄  */
     void SetTracker(Tracking* pTracker);
@@ -185,6 +186,8 @@ protected:
     ORBVocabulary* mpORBVocabulary;
     /// 局部建图线程句柄
     LocalMapping *mpLocalMapper;
+
+    shared_ptr<PointCloudMapping> mpPointCloudMapping;
 
     /// 一个队列, 其中存储了参与到回环检测的关键帧 (当然这些关键帧也有可能因为各种原因被设置成为bad,这样虽然这个关键帧还是存储在这里但是实际上已经不再实质性地参与到回环检测的过程中去了)
     std::list<KeyFrame*> mlpLoopKeyFrameQueue;

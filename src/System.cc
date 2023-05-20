@@ -99,6 +99,8 @@ System::System(const string &strVocFile,					//词典文件路径
     mpFrameDrawer = new FrameDrawer(mpMap);
     mpMapDrawer = new MapDrawer(mpMap, strSettingsFile);
 
+    mpPointCloudMapping = make_shared<PointCloudMapping>();
+
     //在本主进程中初始化追踪线程
     //Initialize the Tracking thread
     //(it will live in the main thread of execution, the one that called this constructor)
@@ -109,7 +111,8 @@ System::System(const string &strVocFile,					//词典文件路径
                              mpMap, 					//地图
                              mpKeyFrameDatabase, 		//关键帧地图
                              strSettingsFile, 			//设置文件路径
-                             mSensor);					//传感器类型iomanip
+                             mSensor,					//传感器类型iomanip
+                             mpPointCloudMapping);
 
     //初始化局部建图线程并运行
     //Initialize the Local Mapping thread and launch
@@ -123,7 +126,8 @@ System::System(const string &strVocFile,					//词典文件路径
     mpLoopCloser = new LoopClosing(mpMap, 						//地图
     							   mpKeyFrameDatabase, 			//关键帧数据库
     							   mpVocabulary, 				//ORB字典
-    							   mSensor!=MONOCULAR);			//当前的传感器是否是单目
+    							   mSensor!=MONOCULAR,			//当前的传感器是否是单目
+                                   mpPointCloudMapping);
     //创建回环检测线程
     mptLoopClosing = new thread(&ORB_SLAM2::LoopClosing::Run,	//线程的主函数
     							mpLoopCloser);					//该函数的参数

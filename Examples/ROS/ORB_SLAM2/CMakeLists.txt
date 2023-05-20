@@ -62,7 +62,7 @@ rosbuild_add_executable(Mono
 src/ros_mono.cc
 )
 
-target_link_libraries(Mono
+target_link_libraries(Mono boost_system boost_filesystem
 ${LIBS}
 )
 
@@ -73,7 +73,7 @@ src/AR/ViewerAR.h
 src/AR/ViewerAR.cc
 )
 
-target_link_libraries(MonoAR
+target_link_libraries(MonoAR boost_system boost_filesystem
 ${LIBS}
 )
 
@@ -82,7 +82,7 @@ rosbuild_add_executable(Stereo
 src/ros_stereo.cc
 )
 
-target_link_libraries(Stereo
+target_link_libraries(Stereo boost_system boost_filesystem
 ${LIBS}
 )
 
@@ -91,7 +91,7 @@ rosbuild_add_executable(RGBD
 src/ros_rgbd.cc
 )
 
-target_link_libraries(RGBD
+target_link_libraries(RGBD boost_system boost_filesystem
 ${LIBS}
 )
 

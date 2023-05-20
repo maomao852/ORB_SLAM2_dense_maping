@@ -41,6 +41,7 @@
 #include "KeyFrameDatabase.h"
 #include "ORBVocabulary.h"
 #include "Viewer.h"
+#include "pointcloudmapping.h"
 
 namespace ORB_SLAM2
 {
@@ -52,6 +53,7 @@ class Map;
 class Tracking;
 class LocalMapping;
 class LoopClosing;
+class PointCloudMapping;
 
 //本类的定义
 class System
@@ -199,6 +201,8 @@ private:
     FrameDrawer* mpFrameDrawer;
     //地图绘制器
     MapDrawer* mpMapDrawer;
+
+    shared_ptr<PointCloudMapping> mpPointCloudMapping;
 
 
     // System threads: Local Mapping, Loop Closing, Viewer.

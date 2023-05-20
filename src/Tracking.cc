@@ -72,7 +72,8 @@ Tracking::Tracking(
     Map *pMap,                          //地图句柄
     KeyFrameDatabase* pKFDB,            //关键帧产生的词袋数据库
     const string &strSettingPath,       //配置文件路径
-    const int sensor):                  //传感器类型
+    const int sensor,                   //传感器类型
+    shared_ptr<PointCloudMapping> pPointCloud):             //dense mapping ptr                 
         mState(NO_IMAGES_YET),                              //当前系统还没有准备好
         mSensor(sensor),                                
         mbOnlyTracking(false),                              //处于SLAM模式
@@ -85,7 +86,8 @@ Tracking::Tracking(
         mpFrameDrawer(pFrameDrawer),
         mpMapDrawer(pMapDrawer), 
         mpMap(pMap), 
-        mnLastRelocFrameId(0)                               //恢复为0,没有进行这个过程的时候的默认值
+        mnLastRelocFrameId(0),                               //恢复为0,没有进行这个过程的时候的默认值
+        mpPointCloudMapping(pPointCloud)
 {
     // Load camera parameters from settings file
     // Step 1 从配置文件中加载相机参数
@@ -1720,6 +1722,8 @@ void Tracking::CreateNewKeyFrame()
     // Step 4：插入关键帧
     // 关键帧插入到列表 mlNewKeyFrames中，等待local mapping线程临幸
     mpLocalMapper->InsertKeyFrame(pKF);
+
+    mpPointCloudMapping->InsertKeyFrame(pKF);
 
     // 插入好了，允许局部建图停止
     mpLocalMapper->SetNotStop(false);
