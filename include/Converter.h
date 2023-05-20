@@ -181,6 +181,8 @@ public:
      */
     static std::vector<float> toQuaternion(const cv::Mat &M);
 
+    static Eigen::Matrix<double,4,4> toMatrix4d(const cv::Mat &cvMat4);
+
     /** @} */
 };
 

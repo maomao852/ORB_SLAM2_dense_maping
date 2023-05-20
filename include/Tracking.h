@@ -183,6 +183,8 @@ public:
     ///> 还有当前帧的灰度图像 //? 提问,那么在双目输入和在RGBD输入的时候呢? 
     ///>                        在双目输入和在RGBD输入时，为左侧图像的灰度图
     cv::Mat mImGray;
+    cv::Mat mImRGB;
+    cv::Mat mImDepth;
 
     // Initialization Variables (Monocular)
     // 初始化时前两帧相关变量

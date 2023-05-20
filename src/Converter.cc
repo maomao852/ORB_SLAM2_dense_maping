@@ -192,6 +192,17 @@ Eigen::Matrix<double,3,3> Converter::toMatrix3d(const cv::Mat &cvMat3)
     return M;
 }
 
+Eigen::Matrix<double,4,4> Converter::toMatrix4d(const cv::Mat &cvMat4)
+{
+    Eigen::Matrix<double,4,4> M;
+
+    M << cvMat4.at<float>(0,0), cvMat4.at<float>(0,1), cvMat4.at<float>(0,2), cvMat4.at<float>(0,3),
+         cvMat4.at<float>(1,0), cvMat4.at<float>(1,1), cvMat4.at<float>(1,2), cvMat4.at<float>(1,3),
+         cvMat4.at<float>(2,0), cvMat4.at<float>(2,1), cvMat4.at<float>(2,2), cvMat4.at<float>(2,3),
+         cvMat4.at<float>(3,0), cvMat4.at<float>(3,1), cvMat4.at<float>(3,2), cvMat4.at<float>(3,3);
+    return M;
+}
+
 //将cv::Mat类型的四元数转换成为std::vector型
 std::vector<float> Converter::toQuaternion(const cv::Mat &M)
 {

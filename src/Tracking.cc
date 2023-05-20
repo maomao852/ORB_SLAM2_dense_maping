@@ -307,6 +307,8 @@ cv::Mat Tracking::GrabImageRGBD(
     const double &timestamp)        //时间戳
 {
     mImGray = imRGB;
+    mImRGB = imRGB;
+    mImDepth = imD;
     cv::Mat imDepth = imD;
 
     // step 1：将RGB或RGBA图像转为灰度图像
@@ -1723,7 +1725,7 @@ void Tracking::CreateNewKeyFrame()
     // 关键帧插入到列表 mlNewKeyFrames中，等待local mapping线程临幸
     mpLocalMapper->InsertKeyFrame(pKF);
 
-    mpPointCloudMapping->InsertKeyFrame(pKF);
+    mpPointCloudMapping->InsertKeyFrame(pKF, mImRGB, mImDepth);
 
     // 插入好了，允许局部建图停止
     mpLocalMapper->SetNotStop(false);
