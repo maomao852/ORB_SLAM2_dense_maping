@@ -309,7 +309,7 @@ cv::Mat Tracking::GrabImageRGBD(
     mImGray = imRGB;
     mImRGB = imRGB;
     mImDepth = imD;
-    cv::Mat imDepth = imD;
+    // cv::Mat imDepth = imD;
 
     // step 1：将RGB或RGBA图像转为灰度图像
     if(mImGray.channels()==3)
@@ -333,16 +333,19 @@ cv::Mat Tracking::GrabImageRGBD(
     //满足前者意味着,mDepthMapFactor 相对1来讲要足够大
     //满足后者意味着,如果深度图像不是浮点型? 才会执行
     //意思就是说,如果读取到的深度图像是浮点型,就不执行这个尺度的变换操作了呗? TODO 
-    if((fabs(mDepthMapFactor-1.0f)>1e-5) || imDepth.type()!=CV_32F)
-        imDepth.convertTo(  //将图像转换成为另外一种数据类型,具有可选的数据大小缩放系数
-            imDepth,            //输出图像
+    if((fabs(mDepthMapFactor-1.0f)>1e-5) || mImDepth.type()!=CV_32F)
+        mImDepth.convertTo(  //将图像转换成为另外一种数据类型,具有可选的数据大小缩放系数
+            mImDepth,            //输出图像
             CV_32F,             //输出图像的数据类型
             mDepthMapFactor);   //缩放系数
+
+    // cv::imshow("imD", imD);
+    // cv::imshow("mImDepth", mImDepth);
 
     // 步骤3：构造Frame
     mCurrentFrame = Frame(
         mImGray,                //灰度图像
-        imDepth,                //深度图像
+        mImDepth,                //深度图像
         timestamp,              //时间戳
         mpORBextractorLeft,     //ORB特征提取器
         mpORBVocabulary,        //词典

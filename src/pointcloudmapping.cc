@@ -28,9 +28,9 @@ namespace ORB_SLAM2
         // cv::imshow("color img", color_img);
         // cv::imshow("depth img", depth_img);
         PointCloud::Ptr tmp (new PointCloud());
-        for ( int m=0; m<depth_img.rows; m+=1 )
+        for ( int m=0; m<depth_img.rows; m+=3 )
         {
-            for ( int n=0; n<depth_img.cols; n+=1 )
+            for ( int n=0; n<depth_img.cols; n+=3 )
             {
                 float d = depth_img.ptr<float>(m)[n];
                 if (d < 0.01 || d>5)
@@ -43,6 +43,8 @@ namespace ORB_SLAM2
                 p.b = color_img.ptr<uchar>(m)[n*3];
                 p.g = color_img.ptr<uchar>(m)[n*3+1];
                 p.r = color_img.ptr<uchar>(m)[n*3+2];
+
+                // cout << p.x << " " << p.y << " " << p.z << endl;
                     
                 tmp->points.push_back(p);
             }
