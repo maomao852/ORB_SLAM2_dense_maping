@@ -637,4 +637,10 @@ vector<cv::KeyPoint> System::GetTrackedKeyPointsUn()
     return mTrackedKeyPointsUn;
 }
 
+void System::ClosePointCludeMapping()
+{
+    mpPointCloudMapping->SaveCloud();
+    mpPointCloudMapping->ShutDown();
+}
+
 } //namespace ORB_SLAM

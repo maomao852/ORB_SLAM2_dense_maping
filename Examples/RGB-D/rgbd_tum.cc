@@ -172,7 +172,11 @@ int main(int argc, char **argv)
     //SLAM.SaveTrajectoryTUM("CameraTrajectory.txt");
     SLAM.SaveTrajectoryTUM("./CameraTrajectory2.txt");
 
-    SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");   
+    SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt"); 
+
+    SLAM.ClosePointCludeMapping();
+
+    cin.get(); 
 
     return 0;
 }

@@ -150,6 +150,8 @@ public:
     // SaveMap(const string &filename);
     // LoadMap(const string &filename);
 
+    void ClosePointCludeMapping();
+
     // Information from most recent processed frame
     // You can call this right after TrackMonocular (or stereo or RGBD)
     //获取最近的运动追踪状态、地图点追踪状态、特征点追踪状态（）

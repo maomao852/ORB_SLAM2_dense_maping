@@ -1101,7 +1101,8 @@ void LoopClosing::RunGlobalBundleAdjustment(unsigned long nLoopKF)
 
             // 释放
             mpLocalMapper->Release();
-
+            
+            mpPointCloudMapping->UpdateCloud();
             cout << "Map updated!" << endl;
         }
 
